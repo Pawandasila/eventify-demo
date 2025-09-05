@@ -1,103 +1,116 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { PageContainer } from "@/components/layout/PageContainer";
+import { CategoryCarousel } from "@/components/domain/CategoryCarousel";
+import { ProductCard } from "@/components/domain/ProductCard";
+import { OfferBanner } from "@/components/domain/OfferBanner";
+import { Button } from "@/components/ui/button";
+import { categories, products, deals } from "@/data/mockData";
 
-export default function Home() {
+export default function HomePage() {
+  // Filter products for different sections
+  const recommendedProducts = products.slice(0, 8);
+  const weddingDecorations = products.filter((p) => p.category === "Wedding Decoration");
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <PageContainer>
+      <section className="py-4 sm:py-6 lg:py-8 overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="relative h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920"
+              alt="Event planning and decoration services"
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div className="absolute inset-0 bg-black/20 sm:bg-black/10"></div>
+            
+            {/* Hero Content Overlay (optional) */}
+            <div className="absolute inset-0 flex items-center justify-center sm:justify-start">
+              <div className="text-center sm:text-left px-4 sm:px-6 lg:px-12">
+                <h1 className="text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-4 drop-shadow-lg">
+                  <span className="block sm:hidden">Event Services</span>
+                  <span className="hidden sm:block">Premium Event Services</span>
+                </h1>
+                <p className="text-xs sm:text-sm lg:text-lg text-white/90 drop-shadow-md max-w-md">
+                  <span className="block sm:hidden">Weddings • Birthdays</span>
+                  <span className="hidden sm:block">Complete event planning and decoration services</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Categories Section */}
+      <CategoryCarousel categories={categories} />
+
+      {/* Deals Carousel */}
+      <section className="py-8 sm:py-12 overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-0">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+              Today&apos;s Event Deals
+            </h2>
+            <Link href="/deals">
+              <Button variant="outline" className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start">
+                View All
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {deals.map((deal) => (
+              <OfferBanner key={deal.id} deal={deal} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Recommended Services */}
+      <section className="py-8 sm:py-12 bg-gray-50 overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-6 sm:mb-8 text-gray-900">
+            Recommended Services
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+            {recommendedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Wedding Decorations Section */}
+      <section className="py-8 sm:py-12 overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-0">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+              Wedding Decorations
+            </h2>
+            <Link href="/category/wedding-decoration">
+              <Button variant="outline" className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start">
+                View All
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+            {weddingDecorations.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </PageContainer>
   );
 }
