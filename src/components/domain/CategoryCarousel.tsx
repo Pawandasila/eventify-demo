@@ -57,39 +57,15 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
   return (
     <section className="py-8 sm:py-12 bg-white overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-0">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             Browse Services
           </h2>
-          <div className="flex gap-2 justify-center sm:justify-start">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className={`w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full bg-white/90 backdrop-blur-sm border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 ${
-                !canScrollLeft ? 'opacity-40 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
-              }`}
-              onClick={scrollLeft}
-              disabled={!canScrollLeft}
-            >
-              <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className={`w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full bg-white/90 backdrop-blur-sm border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 ${
-                !canScrollRight ? 'opacity-40 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
-              }`}
-              onClick={scrollRight}
-              disabled={!canScrollRight}
-            >
-              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-          </div>
         </div>
         
         <div 
           ref={scrollContainerRef}
-          className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-auto pb-4 scroll-smooth"
+          className="flex gap-2 sm:gap-4 lg:gap-6 overflow-x-auto pb-4 scroll-smooth mb-4"
           onScroll={checkScrollButtons}
           style={{
             scrollbarWidth: 'none',
@@ -97,10 +73,39 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
           }}
         >
           {categories.map((category) => (
-            <div key={category.id} className="flex-shrink-0">
-              <CategoryCard category={category} />
+            <div
+              key={category.id}
+              className="flex-shrink-0 w-1/4 min-w-[25%] sm:w-40 sm:min-w-[10rem] lg:w-48 lg:min-w-[12rem]"
+            >
+              <CategoryCard category={category} compact />
             </div>
           ))}
+        </div>
+
+        {/* Navigation buttons at the end */}
+        <div className="flex gap-2 justify-center">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className={`w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full bg-white/90 backdrop-blur-sm border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 ${
+              !canScrollLeft ? 'opacity-40 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+            }`}
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+          >
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className={`w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full bg-white/90 backdrop-blur-sm border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 ${
+              !canScrollRight ? 'opacity-40 cursor-not-allowed' : 'opacity-100 hover:bg-gray-50'
+            }`}
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+          >
+            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+          </Button>
         </div>
       </div>
       

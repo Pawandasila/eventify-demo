@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Search, SlidersHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { CustomBreadcrumb } from '@/components/ui/custom-breadcrumb';
-import { PageContainer } from '@/components/layout/PageContainer';
-import { ProductCard } from '@/components/domain/ProductCard';
-import { products } from '@/data/mockData';
+import React, { useState, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { Search, SlidersHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { CustomBreadcrumb } from "@/components/ui/custom-breadcrumb";
+import { PageContainer } from "@/components/layout/PageContainer";
+import { ProductCard } from "@/components/domain/ProductCard";
+import { products } from "@/data/mockData";
 
 function SearchContent() {
   const searchParams = useSearchParams();
-  const query = searchParams?.get('q') || '';
-  
+  const query = searchParams?.get("q") || "";
+
   const [localQuery, setLocalQuery] = useState(query);
 
-  // Filter products based on search query
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
-    
+
     const searchTerm = query.toLowerCase();
-    return products.filter(product => 
-      product.name.toLowerCase().includes(searchTerm) ||
-      product.category.toLowerCase().includes(searchTerm) ||
-      product.subcategory.toLowerCase().includes(searchTerm) ||
-      product.description.toLowerCase().includes(searchTerm) ||
-      product.brand.toLowerCase().includes(searchTerm)
+    return products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm) ||
+        product.subcategory.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm) ||
+        product.brand.toLowerCase().includes(searchTerm)
     );
   }, [query]);
 
@@ -41,7 +41,7 @@ function SearchContent() {
     <PageContainer>
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <CustomBreadcrumb 
+        <CustomBreadcrumb
           items={[{ label: `Search results for "${query}"` }]}
           className="mb-6"
         />
@@ -51,7 +51,7 @@ function SearchContent() {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             Search Results
           </h1>
-          
+
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="max-w-2xl">
             <div className="relative">
@@ -72,9 +72,11 @@ function SearchContent() {
           <div>
             <div className="flex items-center justify-between mb-6">
               <p className="text-gray-600">
-                {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} found for &quot;{query}&quot;
+                {searchResults.length} result
+                {searchResults.length !== 1 ? "s" : ""} found for &quot;{query}
+                &quot;
               </p>
-              
+
               {searchResults.length > 0 && (
                 <Button variant="outline" className="flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4" />
@@ -98,7 +100,8 @@ function SearchContent() {
                   No products found
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                  We couldn&apos;t find any products matching &quot;{query}&quot;. Try searching with different keywords.
+                  We couldn&apos;t find any products matching &quot;{query}
+                  &quot;. Try searching with different keywords.
                 </p>
                 <div className="space-y-2 text-sm text-gray-500">
                   <p>• Check your spelling</p>
@@ -117,7 +120,8 @@ function SearchContent() {
               Start searching
             </h3>
             <p className="text-gray-600">
-              Enter a product name, category, or brand to find what you&apos;re looking for.
+              Enter a product name, category, or brand to find what you&apos;re
+              looking for.
             </p>
           </div>
         )}
@@ -128,13 +132,15 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={
-      <PageContainer>
-        <div className="flex justify-center items-center min-h-[50vh]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        </div>
-      </PageContainer>
-    }>
+    <Suspense
+      fallback={
+        <PageContainer>
+          <div className="flex justify-center items-center min-h-[50vh]">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+        </PageContainer>
+      }
+    >
       <SearchContent />
     </Suspense>
   );
